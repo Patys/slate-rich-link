@@ -1,10 +1,7 @@
 import { Editor, Raw } from 'slate'
 import React from 'react'
 import state from './State'
-import {observer} from 'mobx-react'
 import RichLink from './RichLink'
-
-console.log(RichLink);
 
 const schema = {
   nodes: {
@@ -14,10 +11,11 @@ const schema = {
 }
 
 class MyEditor extends React.Component {
+
   state = {
     state: Raw.deserialize(state, { terse: true }),
     links: [{}]
-  };
+  }
 
   getPage = (href, next) => {
     fetch('https://crossorigin.me/' + href)
@@ -30,7 +28,7 @@ class MyEditor extends React.Component {
         });
   }
 
-  getPageInfo = (href) => {
+  getPageInfo = (state, href) => {
     this.getPage(href, (data) => {
       let el = document.createElement( 'html' );
       el.innerHTML = data;
@@ -50,16 +48,29 @@ class MyEditor extends React.Component {
         }
       }
       this.setState({ links: this.state.links.concat([{"href": href, img: meta_img, desc: meta_desc, title: el.getElementsByTagName( 'title' )[0].text}])});
-
+      this.forceUpdate();
     });
+
+    return state.transform().insertBlock({
+      type: 'link',
+      data: {
+        href: href,
+        title: this.getLink(href).title,
+        img: this.getLink(href).img,
+        desc: this.getLink(href).desc
+      }
+    }).focus().apply();
   }
 
   getLink = (href) => {
     for(var i = 0; i < this.state.links.length; i++) {
-      if(this.state.links[i].href==href)
+      if(this.state.links[i].href==href) {
+        console.log(this.state.links);
         return this.state.links[i];
+      }
     }
-    return {title: "null", desc: "null", href: "null"}
+    console.log(this.state.links);
+    return {title: "Page", img: "null", desc: "Default page description", href: href}
   }
 
   onChange = (state) => {
@@ -70,18 +81,9 @@ class MyEditor extends React.Component {
     // if (state.isCollapsed) return
     if (data.type != 'text' && data.type != 'html') return
     if (!this.isUrl(data.text)) return
+    this.setState({ state });
 
-    this.getPageInfo(data.text);
-    e.preventDefault();
-    return state.transform().insertBlock({
-      type: 'link',
-      data: {
-        href: data.text,
-        title: this.getLink(data.text).title,
-        img: this.getLink(data.text).img,
-        desc: this.getLink(data.text).desc
-      }
-    }).apply();
+    return this.getPageInfo(state, data.text);
   }
 
   isUrl = (url) => {
