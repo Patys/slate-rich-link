@@ -48,7 +48,6 @@ class MyEditor extends React.Component {
         }
       }
       this.setState({ links: this.state.links.concat([{"href": href, img: meta_img, desc: meta_desc, title: el.getElementsByTagName( 'title' )[0].text}])});
-      this.forceUpdate();
     });
 
     return state.transform().insertBlock({
