@@ -1,10 +1,21 @@
 .rich-link {
-  background-color: #aaa;
-  width: 200px;
-  height: 100px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  width: 500px;
+  height: 150px;
 }
 
 .rich-link .title {
   text-align: right;
   color: #faa;
+  font-size: 100%;
+}
+
+.rich-link .desc {
+  font-size: 80%;
+}
+
+.rich-link a {
+  text-align: right;
 }

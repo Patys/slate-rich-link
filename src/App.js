@@ -6,7 +6,9 @@ import Editor from './Editor'
 class App extends Component {
   render() {
     return (
-      <Editor />
+      <div>
+        <Editor />
+      </div>
     );
   }
 }
