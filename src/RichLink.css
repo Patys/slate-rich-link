@@ -1,0 +1,10 @@
+.rich-link {
+  background-color: #aaa;
+  width: 200px;
+  height: 100px;
+}
+
+.rich-link .title {
+  text-align: right;
+  color: #faa;
+}

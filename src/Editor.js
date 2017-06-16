@@ -1,12 +1,15 @@
 import { Editor, Raw } from 'slate'
 import React from 'react'
 import state from './State'
+import {observer} from 'mobx-react'
+import RichLink from './RichLink'
 
-/**
- * The plain text example.
- *
- * @type {Component}
- */
+const schema = {
+  nodes: {
+    paragraph: props => <p>{props.children}</p>,
+    link: RichLink
+  }
+}
 
 class MyEditor extends React.Component {
   state = {
@@ -17,11 +20,36 @@ class MyEditor extends React.Component {
     this.setState({ state })
   }
 
+  onPaste = (e, data, state) => {
+    // if (state.isCollapsed) return
+    if (data.type != 'text' && data.type != 'html') return
+    if (!this.isUrl(data.text)) return
+
+    return state.transform().insertBlock({
+      type: 'link',
+      data: {
+        href: data.text
+      }
+    }).apply();
+  }
+
+  isUrl = (url) => {
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return pattern.test(url);
+  }
+
   render = () => {
     return (
       <Editor
+        schema={schema}
         state={this.state.state}
         onChange={this.onChange}
+        onPaste={this.onPaste}
       />
     )
   }
