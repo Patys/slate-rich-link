@@ -4,11 +4,14 @@
   border-radius: 4px;
   width: 500px;
   height: 220px;
+  background-color: #ddd;
+  margin-bottom: auto;
+  padding: 15px;
 }
 
 .rich-link .title {
   text-align: right;
-  color: #faa;
+  color: #0a0;
   font-size: 100%;
 }
 

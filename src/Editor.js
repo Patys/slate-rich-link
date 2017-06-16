@@ -5,7 +5,7 @@ import RichLink from './RichLink'
 
 const schema = {
   nodes: {
-    // paragraph: props => <p>{props.children}</p>,
+    paragraph: props => <p>{props.children}</p>,
     link: RichLink
   }
 }
@@ -16,7 +16,6 @@ class MyEditor extends React.Component {
     state: Raw.deserialize(state, { terse: true })
   }
 
-
   onChange = (state) => {
     this.setState({ state })
   }
@@ -25,13 +24,12 @@ class MyEditor extends React.Component {
     // if (state.isCollapsed) return
     if (data.type != 'text' && data.type != 'html') return
     if (!this.isUrl(data.text)) return
-
     return state.transform().insertBlock({
       type: 'link',
       data: {
         href: data.text
       }
-    }).focus().apply();
+    }).collapseToEnd().apply();
   }
 
   isUrl = (url) => {

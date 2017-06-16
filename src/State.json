@@ -6,24 +6,7 @@
       "nodes": [
         {
           "kind": "text",
-          "text": "In addition to block nodes, you can create inline nodes, like "
-        },
-        {
-          "kind": "inline",
-          "type": "link",
-          "data": {
-            "href": "https://en.wikipedia.org/wiki/Hypertext"
-          },
-          "nodes": [
-            {
-              "kind": "text",
-              "text": "hyperlinks"
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "text": "!"
+          "text": "Some text at the beginning"
         }
       ]
     },
@@ -33,7 +16,24 @@
       "nodes": [
         {
           "kind": "text",
-          "text": "This example shows hyperlinks in action. It features two ways to add links. You can either add a link via the toolbar icon above, or if you want in on a little secret, copy a URL to your keyboard and paste it while a range of text is selected."
+          "text": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at nisi rutrum, accumsan ipsum sed, porta velit. Donec at convallis metus. Etiam malesuada tortor eu eros maximus sagittis. Curabitur arcu eros, lacinia ullamcorper pulvinar non, ullamcorper ullamcorper eros. Sed tempus tempus enim, ac pharetra risus varius at. Aenean id mi vel ante eleifend tincidunt sed vel sapien. Quisque vel accumsan velit. Vivamus tincidunt aliquet quam vitae molestie. Nulla lobortis eget sem nec vestibulum. Mauris venenatis ornare ante, eget ullamcorper augue ultrices eget. Donec laoreet, eros vel ornare auctor, quam eros molestie sapien, non porta orci mi ac nisl. Vestibulum elementum fringilla sapien a fringilla. Fusce vel nunc dapibus, suscipit justo quis, fermentum ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed consectetur ultrices metus, eu tincidunt augue suscipit ac. ."
+        }
+      ]
+    },
+    {
+      "kind": "block",
+      "type": "link",
+      "data": {
+        "href": "https://techcrunch.com/"
+      }
+    },
+    {
+      "kind": "block",
+      "type": "paragraph",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "Some text at the end"
         }
       ]
     }

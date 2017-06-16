@@ -38,22 +38,14 @@ class RichLink extends React.Component{
       for (var i=0; i<metas.length; i++) {
         if (metas[i].getAttribute("property") == "og:description") {
           meta_desc = metas[i].getAttribute("content");
-          // return metas[i].getAttribute("content") ? metas[i].getAttribute("content") : "Some pages";
         }
         if (metas[i].getAttribute("property") == "og:image") {
           meta_img = metas[i].getAttribute("content");
-          // return metas[i].getAttribute("content") ? metas[i].getAttribute("content") : "Some pages";
         }
       }
       this.setState({ page: {"href": href, img: meta_img, desc: meta_desc, title: el.getElementsByTagName( 'title' )[0].text}});
     });
   }
-
-  // const { data } = props.node;
-  // const href = data.get('href');
-  // const title = data.get('title');
-  // const desc = data.get('desc');
-  // const img = data.get('img');
 
   render = () => {
     console.log(this.state.page);
@@ -63,13 +55,15 @@ class RichLink extends React.Component{
         <div className="rich-link">
           <div className="title">{this.state.page.title}</div>
           <img width="50" height="50" src={this.state.page.img} alt=""/>
-          <a href={this.state.href}>{this.state.page.href}</a>
+          <a href={this.state.page.href}>{this.state.page.href}</a>
           <div className="desc">{this.state.page.desc}</div>
+          <p>&nbsp;</p>
         </div>
       );
     return (
       <div className="rich-link">
         <div className="title">Loading ...</div>
+        <p>&nbsp;</p>
       </div>
     );
   }
